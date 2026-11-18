@@ -1,0 +1,13 @@
+# Dependencias (se instalan con npm install)
+node_modules/
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Archivos locales
+*.zip
+.env

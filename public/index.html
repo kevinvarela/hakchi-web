@@ -1,0 +1,136 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later — Copyright (C) 2026 Kevin Varela -->
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>hakchi web</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect x='1' y='4' width='14' height='8' rx='2' fill='%237b5cd6'/><circle cx='5' cy='8' r='1.5' fill='white'/><circle cx='11' cy='8' r='1.5' fill='white'/></svg>">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="logo" aria-hidden="true"></span>
+      <div>
+        <h1>hakchi web</h1>
+        <p class="sub">Agrega ROMs a tu NES / SNES Classic Mini</p>
+      </div>
+    </div>
+    <div class="status" id="status">
+      <span class="dot"></span><span id="statusText">Conectando…</span>
+    </div>
+  </header>
+
+  <main>
+    <section id="check" class="card check">
+      <div class="check-head">
+        <span class="check-icon" id="checkIcon" data-state="loading" aria-hidden="true"></span>
+        <div>
+          <div class="label">Comprobación de la consola</div>
+          <h2 id="checkTitle">Buscando tu consola…</h2>
+        </div>
+      </div>
+      <p id="checkText">Comprobando si hay una NES o SNES Mini con hakchi conectada por USB.</p>
+      <div class="cmd" id="checkCommand" hidden>
+        <code id="checkCode"></code>
+        <button class="btn sm" id="copyCmd">Copiar</button>
+      </div>
+      <ol id="checkSteps" hidden></ol>
+      <p class="small muted" id="checkHint" hidden></p>
+      <details id="checkDetail" hidden><summary class="small muted">Detalle técnico</summary><pre id="checkDetailText"></pre></details>
+      <div class="check-actions">
+        <button class="btn primary" id="retry">Volver a comprobar</button>
+        <span class="small muted" id="autoCheck"></span>
+      </div>
+    </section>
+
+    <section id="app" hidden>
+      <div class="card info">
+        <div>
+          <div class="label">Consola</div>
+          <div class="value" id="consoleName">—</div>
+        </div>
+        <div class="space">
+          <div class="label">Espacio libre</div>
+          <div class="bar"><span id="spaceBar"></span></div>
+          <div class="small" id="spaceText">—</div>
+        </div>
+        <div class="actions">
+          <button class="btn" id="refresh">Actualizar</button>
+          <button class="btn ghost" id="reboot">Reiniciar consola</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Agregar juegos</h2>
+        <label class="drop" id="drop">
+          <input type="file" id="fileInput" multiple accept=".nes,.sfc,.smc,.sfrom">
+          <strong>Arrastra aquí tus ROMs</strong>
+          <span>o haz clic para elegirlas · <span id="formats">.nes · .sfc · .smc · .sfrom</span></span>
+        </label>
+
+        <div id="queue" class="queue"></div>
+        <div class="queue-actions" id="queueActions" hidden>
+          <span id="queueSummary" class="small"></span>
+          <div>
+            <button class="btn ghost" id="clearQueue">Vaciar</button>
+            <button class="btn primary" id="uploadBtn">Enviar a la consola</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="list-head">
+          <h2>Juegos en la consola <span class="count" id="gameCount"></span></h2>
+          <input type="search" id="search" placeholder="Buscar…">
+        </div>
+        <div id="games" class="games"></div>
+        <p class="small muted" id="noGames" hidden>Aún no has agregado juegos con hakchi. La consola muestra sus juegos de fábrica.</p>
+      </div>
+
+      <div class="card" id="modsCard">
+        <div class="list-head">
+          <h2>Módulos <span class="count" id="modCount"></span></h2>
+          <div class="actions">
+            <label class="btn">
+              Subir .hmod
+              <input type="file" id="hmodInput" accept=".hmod,.zip,.tar,.tgz,.gz" multiple hidden>
+            </label>
+            <button class="btn primary" id="openHub">Buscar en Mod Hub</button>
+          </div>
+        </div>
+        <p class="small muted">Los módulos agregan funciones a la consola, por ejemplo <strong>RetroArch</strong>, que permite jugar NES y otros sistemas en la SNES Mini.</p>
+
+        <div class="pending" id="pending" hidden>
+          <div>
+            <strong>Cambios pendientes</strong>
+            <div class="small" id="pendingText"></div>
+            <div class="small muted">Se aplican al reiniciar la consola: hakchi los instala al arrancar y se reinicia otra vez sola (1–2 minutos). No la apagues mientras tanto.</div>
+          </div>
+          <button class="btn primary" id="applyMods">Aplicar y reiniciar</button>
+        </div>
+
+        <div id="modList" class="mod-list"></div>
+
+        <div id="hub" class="hub" hidden>
+          <div class="list-head">
+            <h2>Mod Hub</h2>
+            <div class="actions">
+              <select id="hubCat" aria-label="Categoría"></select>
+              <input type="search" id="hubSearch" placeholder="Buscar módulo… (p. ej. RetroArch)">
+            </div>
+          </div>
+          <div id="hubList" class="hub-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="busy" class="busy" hidden><div class="busy-box"><div class="spinner"></div><p id="busyText">Trabajando…</p></div></div>
+
+  <input type="file" id="coverInput" accept="image/*" hidden>
+  <script src="app.js"></script>
+</body>
+</html>

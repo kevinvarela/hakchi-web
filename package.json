@@ -1,0 +1,45 @@
+{
+  "name": "hakchi-web",
+  "version": "1.0.0",
+  "description": "Gestor web para agregar ROMs y módulos a la NES Classic Mini y SNES Classic Mini con hakchi CE, desde el navegador.",
+  "keywords": [
+    "hakchi",
+    "hakchi2",
+    "snes-classic",
+    "nes-classic",
+    "snes-mini",
+    "nes-mini",
+    "retroarch",
+    "roms",
+    "hmod",
+    "sfrom"
+  ],
+  "homepage": "https://github.com/kevinvarela/hakchi-web#readme",
+  "bugs": {
+    "url": "https://github.com/kevinvarela/hakchi-web/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinvarela/hakchi-web.git"
+  },
+  "license": "GPL-3.0-or-later",
+  "author": {
+    "name": "Kevin Varela",
+    "url": "https://github.com/kevinvarela"
+  },
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "demo": "node server.js --demo",
+    "test": "node test/run.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "4.22.3",
+    "multer": "2.5.0",
+    "ssh2": "1.17.0"
+  }
+}
